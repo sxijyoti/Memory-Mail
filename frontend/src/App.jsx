@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
 import Notifications from './pages/Notifications';
-import Error404 from './pages/Error404';
+import Error404 from './pages/error404';
 
 const App = () => {
   return (
