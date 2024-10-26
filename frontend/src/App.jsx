@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Settings from './pages/Settings';
 import Notifications from './pages/Notifications';
 import Error404 from './pages/error404';
+import About from './pages/About';
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
         <Route path="/" element={<Dashboard />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/notifications" element={<Notifications />} />
+        <Route path="/about" element={<About/>} />
         <Route path="/error404" element={<Error404 />} /> 
         <Route path="*" element={<Error404 />} /> 
       </Routes>

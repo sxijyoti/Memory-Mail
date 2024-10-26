@@ -9,10 +9,13 @@ const Navbar = () => {
           <Link style={{ color: 'white', textDecoration: 'none' }} to="/">Dashboard</Link>
         </li>
         <li>
-          <Link style={{ color: 'white', textDecoration: 'none' }} to="/settings">Settings</Link>
+          <Link style={{ color: 'white', textDecoration: 'none' }} to="/about">About Us</Link>
         </li>
         <li>
             <Link style={{color: 'white', textDecoration: 'none'}} to="/notifications">Notifications</Link>
+        </li>
+        <li>
+          <Link style={{ color: 'white', textDecoration: 'none' }} to="/settings">Settings</Link>
         </li>
         <li>Login</li>
       </ul>
