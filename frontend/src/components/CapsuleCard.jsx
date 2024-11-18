@@ -1,57 +1,96 @@
 import React from 'react';
-import { Lock, Unlock, Calendar, Users } from 'lucide-react';
+import { Lock, Unlock, Calendar, Users, Edit, Trash } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import './CapsuleCard.css'; // Import the custom CSS file with Tailwind styles
 
-export default function CapsuleCard({ capsule, onClick }) {
-  const isUnlockingSoon = new Date(capsule.unlockDate) - new Date() < 7 * 24 * 60 * 60 * 1000;
+export default function CapsuleCard({ capsule, onClick, onDelete }) {
+  const isUnlockingSoon =
+    capsule.isLocked &&
+    new Date(capsule.unlockDate) - new Date() < 7 * 24 * 60 * 60 * 1000; // 7 days in ms
+
+  const imageContent = Array.isArray(capsule.contents)
+    ? capsule.contents.find((content) => content.type === 'image')
+    : null; // Default to null if contents is not an array
+
+  // Default capsule.recipients to an empty array if undefined or not an array
+  const recipientsCount = Array.isArray(capsule.recipients) ? capsule.recipients.length : 0;
+
+  
 
   return (
-    <div 
+    <div
       onClick={() => onClick(capsule.id)}
-      className="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 cursor-pointer overflow-hidden border border-gray-100"
+      className="capsule-card"
     >
-      <div className="relative h-48 bg-gradient-to-br from-indigo-500 to-purple-600">
-        {capsule.contents.some(c => c.type === 'image') && (
+      {/* Image and Title Section */}
+      <div className="capsule-image-section">
+        {imageContent && (
           <img
-            src={capsule.contents.find(c => c.type === 'image').preview}
-            alt=""
-            className="w-full h-full object-cover opacity-50"
+            src={imageContent.preview}
+            alt="Capsule attachment"
+            className="capsule-image"
           />
         )}
-        <div className="absolute inset-0 bg-black bg-opacity-20" />
-        <div className="absolute bottom-4 left-4 right-4">
-          <h3 className="text-xl font-semibold text-white mb-1">{capsule.title}</h3>
-          <p className="text-white text-opacity-90 text-sm line-clamp-2">{capsule.description}</p>
+        <div className="capsule-overlay" />
+        <div className="capsule-text">
+          <h3 className="capsule-title">{capsule.title}</h3>
+          <p className="capsule-description">{capsule.description}</p>
         </div>
       </div>
 
-      <div className="p-4">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-2">
+      {/* Details Section */}
+      <div className="capsule-details">
+        {/* Lock Status */}
+        <div className="capsule-lock-status">
+          <div className="capsule-lock-info">
             {capsule.isLocked ? (
-              <Lock className="h-5 w-5 text-indigo-600" />
+              <Lock className="capsule-lock-icon" />
             ) : (
-              <Unlock className="h-5 w-5 text-green-600" />
+              <Unlock className="capsule-unlock-icon" />
             )}
-            <span className={`text-sm font-medium ${capsule.isLocked ? 'text-indigo-600' : 'text-green-600'}`}>
+            <span className="capsule-lock-text">
               {capsule.isLocked ? 'Locked' : 'Unlocked'}
             </span>
           </div>
-          {isUnlockingSoon && capsule.isLocked && (
-            <span className="px-3 py-1 text-xs font-medium text-amber-700 bg-amber-50 rounded-full">
+          {isUnlockingSoon && (
+            <span className="capsule-unlock-soon">
               Unlocking Soon!
             </span>
           )}
         </div>
 
-        <div className="flex items-center justify-between text-sm text-gray-500">
-          <div className="flex items-center space-x-2">
-            <Calendar className="h-4 w-4" />
+        {/* Unlock Date and Recipient Info */}
+        <div className="capsule-info">
+          <div className="capsule-date">
+            <Calendar className="capsule-calendar-icon" />
             <span>{new Date(capsule.unlockDate).toLocaleDateString()}</span>
           </div>
-          <div className="flex items-center space-x-2">
-            <Users className="h-4 w-4" />
-            <span>{capsule.recipients.length} recipients</span>
+          <div className="capsule-recipients">
+            <Users className="capsule-users-icon" />
+            <span>{recipientsCount} recipients</span>
           </div>
+        </div>
+
+        {/* Actions: Edit (Link) and Delete */}
+        <div className="capsule-actions">
+          <Link
+            to={`/edit/${capsule.id}`}
+            onClick={(e) => e.stopPropagation()} // Prevent card click on link click
+            className="capsule-edit-link"
+          >
+            <Edit className="capsule-edit-icon" />
+            <span>Edit</span>
+          </Link>
+          <button
+            onClick={(e) => {
+              e.stopPropagation(); // Prevent card click
+              onDelete(capsule.id);
+            }}
+            className="capsule-delete-button"
+          >
+            <Trash className="capsule-delete-icon" />
+            <span>Delete</span>
+          </button>
         </div>
       </div>
     </div>

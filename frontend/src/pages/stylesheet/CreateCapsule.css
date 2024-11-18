@@ -1,0 +1,106 @@
+/* Container for the form */
+.create-capsule-container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  /* Heading for the page */
+  .create-capsule-heading {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1f2937; /* Dark Gray */
+    margin-bottom: 2rem;
+  }
+  
+  /* Form structure */
+  .create-capsule-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  /* Styling for form groups */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Label styling */
+  .form-label {
+    font-size: 0.875rem;
+    font-weight: medium;
+    color: #4b5563; /* Light Gray */
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Input fields for text, email, and date */
+  .form-input,
+  .form-textarea {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.375rem;
+    border: 1px solid #d1d5db; /* Light Gray */
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: #6366f1; /* Indigo */
+    outline: none;
+  }
+  
+  /* Textarea field for messages */
+  .form-textarea {
+    resize: vertical;
+  }
+  
+  /* File input for image */
+  .form-file-input {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 0.375rem;
+    border: 1px solid #d1d5db; /* Light Gray */
+  }
+  
+  /* Actions buttons */
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  /* Cancel button styling */
+  .form-button-cancel {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: medium;
+    color: #4b5563; /* Light Gray */
+    background-color: white;
+    border: 1px solid #d1d5db; /* Light Gray */
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .form-button-cancel:hover {
+    background-color: #f3f4f6; /* Light Gray Hover */
+  }
+  
+  /* Submit button styling */
+  .form-button-submit {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: medium;
+    color: white;
+    background-color: #6366f1; /* Indigo */
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .form-button-submit:hover {
+    background-color: #4f46e5; /* Darker Indigo */
+  }
+  

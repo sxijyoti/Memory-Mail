@@ -1,0 +1,183 @@
+/* General Styles */
+.landing {
+    font-family: 'Inter', sans-serif;
+    color: #333;
+  }
+  
+  /* Hero Section */
+  .landing-hero {
+    position: relative;
+    background: linear-gradient(to bottom, #ffffff, #f9f9ff);
+    text-align: center;
+    overflow: hidden;
+    padding: 3rem 1rem 6rem;
+  }
+  
+  .landing-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+  
+  .landing-text-center {
+    z-index: 2;
+    position: relative;
+  }
+  
+  .landing-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+  
+  .landing-subtitle {
+    font-size: 1.25rem;
+    color: #6b7280;
+    margin-bottom: 2rem;
+  }
+  
+  .landing-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  /* Primary Button */
+  .landing-button-primary {
+    background-color: #4f46e5;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .landing-button-primary:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+  }
+  
+  /* Secondary Button (Sign in) */
+  .landing-button-secondary {
+    background-color: #4f46e5;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border: none;
+  }
+  
+  .landing-button-secondary:hover {
+    background-color: #e5e7eb;
+    color: #1f2937;
+  }
+  
+  /* Animated Circles */
+  .landing-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+  }
+  
+  .circle-animation {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .circle-1 {
+    width: 150px;
+    height: 150px;
+    background: rgba(79, 70, 229, 0.2);
+    top: 10%;
+    left: 20%;
+    animation-delay: 0s;
+  }
+  
+  .circle-2 {
+    width: 200px;
+    height: 200px;
+    background: rgba(156, 163, 175, 0.2);
+    top: 50%;
+    left: 70%;
+    animation-delay: 1.5s;
+  }
+  
+  .circle-3 {
+    width: 100px;
+    height: 100px;
+    background: rgba(79, 70, 229, 0.3);
+    top: 80%;
+    left: 30%;
+    animation-delay: 3s;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  /* About Section */
+  .landing-about {
+    background-color: #f9f9ff;
+    padding: 4rem 1rem;
+    text-align: center;
+  }
+  
+  .landing-section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1f2937;
+  }
+  
+  .landing-section-description {
+    font-size: 1rem;
+    color: #6b7280;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  /* Contact Us Section */
+  .landing-contact {
+    background-color: #ffffff;
+    padding: 4rem 1rem;
+    text-align: center;
+  }
+  
+  .landing-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+  }
+  
+  .landing-contact-list li {
+    font-size: 1rem;
+    color: #6b7280;
+    margin: 0.5rem 0;
+  }
+  
+  .landing-contact-list a {
+    color: #4f46e5;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .landing-contact-list a:hover {
+    color: #4338ca;
+  }
+  
