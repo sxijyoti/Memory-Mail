@@ -5,7 +5,7 @@ import './stylesheet/Settings.css'; // Import the CSS file
 export default function Settings() {
   const { user } = useAuth();
   const [formData, setFormData] = useState({
-    name: 'John Doe',
+    name: user?.name,
     email: user?.email || '',
     notifications: true,
     emailUpdates: true,
