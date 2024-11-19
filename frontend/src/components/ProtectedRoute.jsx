@@ -12,18 +12,33 @@
 // }
 
 // components/ProtectedRoute.jsx
+// import { Navigate } from 'react-router-dom';
+// import { useAuth } from '../context/AuthContext';
+
+// const ProtectedRoute = ({ children }) => {
+//   const { user } = useAuth(); // Assuming `user` holds the logged-in user's data
+
+//   if (!user) {
+//     // Redirect to login if no user is logged in
+//     return <Navigate to="/login" />;
+//   }
+
+//   return children; // Render the protected route if user is authenticated
+// };
+
+// export default ProtectedRoute;
+
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useAuth(); // Assuming `user` holds the logged-in user's data
+  const { user, getToken } = useAuth();
 
-  if (!user) {
-    // Redirect to login if no user is logged in
+  if (!user || !getToken()) {
     return <Navigate to="/login" />;
   }
 
-  return children; // Render the protected route if user is authenticated
+  return children;
 };
 
 export default ProtectedRoute;

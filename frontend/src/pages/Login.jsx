@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './stylesheet/Login.css';
+import axios from 'axios';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -13,12 +14,32 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // In a real app, you'd make an API call here
-      login({ email }); // Mock login
-      console.log("SUCCCESSS")
-      navigate('/dashboard');
+      // Prepare the payload for login request
+      const payload = { email, password };
+
+      // Make the API call to the backend login endpoint
+      const response = await fetch('http://localhost:5000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // If login is successful, store the token and user info in context
+        login({ email: result.user.email, token: result.token });
+
+        // Redirect to the dashboard or home page
+        navigate('/dashboard');
+      } else {
+        // Handle any error from the API response
+        setError(result.message || 'Invalid credentials');
+      }
     } catch (err) {
-      setError('Invalid credentials');
+      setError('Login failed. Please try again.');
     }
   };
 

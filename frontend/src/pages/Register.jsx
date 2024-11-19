@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import './stylesheet/Register.css'; // Import CSS
 
@@ -42,10 +43,36 @@ export default function Register() {
       setError('Passwords do not match');
       return;
     }
+    // try {
+    //   // In a real app, you'd make an API call here
+    //   login({ email: formData.email }); // Mock registration and login
+    //   navigate('/dashboard');
+    // } catch (err) {
+    //   setError('Registration failed');
+    // }
+    const payload = {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+    };
+
     try {
-      // In a real app, you'd make an API call here
-      login({ email: formData.email }); // Mock registration and login
-      navigate('/dashboard');
+      const response = await fetch('http://localhost:5000/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        login({ email: formData.email }); // Mock login
+        navigate('/dashboard');
+      } else {
+        setError(result.message || 'Registration failed');
+      }
     } catch (err) {
       setError('Registration failed');
     }
