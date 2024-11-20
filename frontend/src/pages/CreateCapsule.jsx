@@ -8,38 +8,73 @@ export default function CreateCapsule() {
   const [formData, setFormData] = useState({
     title: '',
     message: '',
-    recipientEmail: '',
     unlockDate: format(new Date().setMonth(new Date().getMonth() + 1), 'yyyy-MM-dd'),
-    image: null
   });
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real app, this would be an API call
-    console.log('Capsule created:', formData);
-    navigate('/dashboard');
+    setError(null); // Reset any previous error
+
+    try {
+      // Log the current token
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        console.error('Token not found in localStorage');
+        return; // Prevent further execution
+      }
+
+      console.log('Token retrieved from localStorage:', token);
+
+      // Ensure the token is valid
+      if (!token) {
+        throw new Error('No authentication token found. Please log in.');
+      }
+
+      const response = await fetch('http://localhost:5000/api/capsules', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,  // Use the retrieved token here
+        },
+        body: JSON.stringify(formData),
+      });
+
+      console.log('API response status:', response.status);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Error response from server:', errorData);
+        throw new Error(errorData.message || 'Failed to create capsule');
+      }
+
+      const result = await response.json();
+      console.log('Capsule created:', result);
+
+      navigate('/dashboard'); // Redirect after success
+    } catch (err) {
+      console.error('Error in handleSubmit:', err.message);
+      setError(err.message); // Display error if API call fails
+    }
   };
 
   const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'image') {
-      setFormData(prev => ({
-        ...prev,
-        image: files[0]
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
-    }
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
+
 
   return (
     <div className="create-capsule-container">
       <h1 className="create-capsule-heading">Create New Time Capsule</h1>
-      
+
       <form onSubmit={handleSubmit} className="create-capsule-form">
+        {error && <p className="form-error">{error}</p>}
+
         <div className="form-group">
           <label htmlFor="title" className="form-label">Title</label>
           <input
@@ -67,19 +102,6 @@ export default function CreateCapsule() {
         </div>
 
         <div className="form-group">
-          <label htmlFor="recipientEmail" className="form-label">Recipient Email</label>
-          <input
-            type="email"
-            id="recipientEmail"
-            name="recipientEmail"
-            required
-            className="form-input"
-            value={formData.recipientEmail}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
           <label htmlFor="unlockDate" className="form-label">Unlock Date</label>
           <input
             type="date"
@@ -89,18 +111,6 @@ export default function CreateCapsule() {
             min={format(new Date(), 'yyyy-MM-dd')}
             className="form-input"
             value={formData.unlockDate}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="image" className="form-label">Image (optional)</label>
-          <input
-            type="file"
-            id="image"
-            name="image"
-            accept="image/*"
-            className="form-file-input"
             onChange={handleChange}
           />
         </div>

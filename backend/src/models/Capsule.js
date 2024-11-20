@@ -15,7 +15,7 @@ const capsuleSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  openDate: {
+  unlockDate: {
     type: Date,
     required: true
   },

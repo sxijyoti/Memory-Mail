@@ -15,13 +15,8 @@ export default function CapsuleCard({ capsule, onClick, onDelete }) {
   // Default capsule.recipients to an empty array if undefined or not an array
   const recipientsCount = Array.isArray(capsule.recipients) ? capsule.recipients.length : 0;
 
-  
-
   return (
-    <div
-      onClick={() => onClick(capsule.id)}
-      className="capsule-card"
-    >
+    <div onClick={() => onClick(capsule.id)} className="capsule-card">
       {/* Image and Title Section */}
       <div className="capsule-image-section">
         {imageContent && (
@@ -74,7 +69,7 @@ export default function CapsuleCard({ capsule, onClick, onDelete }) {
         {/* Actions: Edit (Link) and Delete */}
         <div className="capsule-actions">
           <Link
-            to={`/edit/${capsule.id}`}
+            to={`/edit/${capsule._id}`}
             onClick={(e) => e.stopPropagation()} // Prevent card click on link click
             className="capsule-edit-link"
           >
@@ -84,7 +79,7 @@ export default function CapsuleCard({ capsule, onClick, onDelete }) {
           <button
             onClick={(e) => {
               e.stopPropagation(); // Prevent card click
-              onDelete(capsule.id);
+              onDelete(capsule._id);
             }}
             className="capsule-delete-button"
           >

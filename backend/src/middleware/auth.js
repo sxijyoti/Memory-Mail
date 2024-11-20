@@ -1,47 +1,32 @@
-// const jwt = require('jsonwebtoken');
-
-// const auth = async (req, res, next) => {
-//   try {
-//     const token = req.header('Authorization')?.replace('Bearer ', '');
-    
-//     if (!token) {
-//       return res.status(401).json({ error: 'Access Token Required' });
-//     }
-
-//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-//     req.user = { id: decoded.userId };
-//     next();
-//   } catch (error) {
-//     res.status(401).json({ error: 'Invalid token' });
-//   }
-// };
-
-// module.exports = auth;
-
 const jwt = require('jsonwebtoken');
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
+  // Log the token being verified
+  console.log('Authorization header:', authHeader);
+  console.log('Extracted token:', token);
+
   if (!token) {
-    return res.status(401).json({ message: 'Access Token Required' });
+    console.log('No token provided');
+    return res.status(401).json({ message: 'Unauthorized: No token provided' });
   }
 
-  // jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-  //   if (err) {
-  //     return res.status(403).json({ message: 'Invalid Token' });
-  //   }
-  //   req.user = user;
-  //   next();
-  // });
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+    if (err) {
+      console.log('Token verification failed:', err.name, err.message);
+      const errorMessage =
+        err.name === 'TokenExpiredError'
+          ? 'Token expired'
+          : 'Invalid token';
+      return res.status(403).json({ message: `Forbidden: ${errorMessage}` });
+    }
+
+    console.log('Authenticated user:', user);
+    req.user = user; // Attach user details to the request object
     next();
-  } catch (error) {
-    res.status(400).json({ message: 'Invalid token' });
-  }
+  });
 };
 
 module.exports = authenticateToken;
