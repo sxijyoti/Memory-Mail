@@ -1,0 +1,131 @@
+/* Capsule Card */
+.capsule-card {
+  background-color: #fff;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb; /* Tailwind gray-100 */
+  cursor: pointer;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+  width: 100%; /* Ensure it fits the container */
+  max-width: 28rem; /* Set a max-width for the card */
+  margin: 1rem; /* Add margin to space out the cards */
+}
+
+/* Image Section */
+.capsule-image-section {
+  position: relative;
+  height: 10rem; /* Tailwind h-64 - increased height for larger image section */
+  background: linear-gradient(to bottom right, #4c6ef5, #7c3aed); /* Tailwind gradient */
+}
+
+.capsule-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+}
+
+.capsule-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.capsule-text {
+  position: absolute;
+  bottom: 1.5rem; /* Increased bottom padding */
+  left: 1.5rem; /* Adjusted left padding */
+  right: 1.5rem;
+}
+
+/* Title and Description */
+.capsule-title {
+  font-size: 1.25rem; /* Tailwind text-xl */
+  font-weight: 600; /* Tailwind font-semibold */
+  color: white;
+}
+
+.capsule-description {
+  font-size: 1rem; /* Tailwind text-sm */
+  color: rgba(255, 255, 255, 0.9); /* Using rgba for opacity */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* Capsule Details Section */
+.capsule-details {
+  padding: 1.5rem; /* Tailwind p-6 for more spacing */
+}
+
+/* Lock Status */
+.capsule-lock-status {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem; /* Tailwind mb-4 */
+}
+
+.capsule-lock-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Tailwind space-x-2 */
+}
+
+.capsule-lock-text {
+  font-size: 0.875rem; /* Tailwind text-sm */
+  font-weight: 500; /* Tailwind font-medium */
+}
+
+/* Unlock Soon Badge */
+.capsule-unlock-soon {
+  padding: 0.5rem 1rem; /* Increased padding for better visibility */
+  font-size: 0.875rem; /* Tailwind text-sm */
+  font-weight: 500; /* Tailwind font-medium */
+  background-color: #fef3c7; /* Tailwind bg-amber-50 */
+  color: #b45309; /* Tailwind text-amber-700 */
+  border-radius: 9999px; /* Tailwind rounded-full */
+}
+
+/* Capsule Info Section */
+.capsule-info {
+  display: flex;
+  justify-content: space-between;
+  color: #6b7280; /* Tailwind text-gray-500 */
+  font-size: 0.875rem; /* Tailwind text-sm */
+}
+
+.capsule-date,
+.capsule-recipients {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  /* gap: 0.1rem; Tailwind space-x-2 */
+}
+
+/* Actions: Edit and Delete */
+.capsule-actions {
+  display: flex;
+  justify-content: space-between; /* Aligns actions at separate corners */
+  margin-top: 1.25rem; /* Tailwind mt-5 for better spacing */
+}
+
+.capsule-edit-link,
+.capsule-delete-button {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; /* Tailwind space-x-1 */
+  font-size: 0.875rem; /* Tailwind text-sm */
+  font-weight: 500; /* Tailwind font-medium */
+  text-decoration: none; /* Remove underline for links */
+  color: #6b7280; /* Tailwind text-gray-500 */
+  transition: color 0.2s ease;
+}
+
+.capsule-edit-link:hover {
+  color: #4338ca; /* Tailwind hover:text-indigo-800 */
+}
+
+.capsule-delete-button:hover {
+  color: #b91c1c; /* Tailwind hover:text-red-800 */
+}
