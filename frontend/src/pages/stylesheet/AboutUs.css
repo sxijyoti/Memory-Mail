@@ -1,13 +1,7 @@
 /* General Styles for Body */
-body {
-    background: linear-gradient(to bottom, #190019, #2b124c); /* Dark purple gradient background */
-    font-family: 'Arial', sans-serif;
-    color: #fbe4d8; /* Pale peach text color */
-    margin: 0; /* Remove default margin */
-    min-height: 100vh; /* Ensure it covers the full viewport height */
-    justify-content: center; /* Centers the content vertically */
-    align-items: center; /* Centers the content horizontally */
-}
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900');
+
+/*  */
 /* Container Styles */
 .about-us-container {
     width: 100%;
@@ -27,11 +21,11 @@ body {
 .about-us-title {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #ffffff; /* Dark purple color */
+    color: #fbe4d8; /* Dark purple color */
     margin-bottom: 0.75rem; /* Increase the bottom margin */
 }
 .about-us-subtitle {
-    font-size: 1.125rem;
+    font-size: 1.2rem;
     color: #dfb6b2; /* Dark purple color */
     line-height: 1.6;
 }
@@ -40,13 +34,13 @@ body {
     margin-bottom: 2rem;
 }
 .about-us-heading {
-    font-size: 1.75rem;
+    font-size: 1.9rem;
     font-weight: bold;
-    color: #ffffff; /* Light purple color */
+    color: #fbe4d8; /* Light purple color */
     margin-bottom: 1rem;
 }
 .about-us-text {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #dfb6b2; /* Dark purple color */
     line-height: 1.8;
 }
@@ -60,3 +54,13 @@ body {
     font-size: 0.875rem;
 
 }
+
+.about-us-footer-link {
+    color: #fbe4d8; /* Pale peach color */
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .about-us-footer-link:hover {
+    text-decoration: underline;
+  }
