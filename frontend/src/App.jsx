@@ -1,11 +1,10 @@
-
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import CreateCapsule from './pages/CreateCapsule';
 // import EditCapsule from './pages/EditCapsule';
+import ViewCapsule from './pages/ViewCapsule';
 import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
@@ -14,6 +13,7 @@ import ProtectedRoute from './components/ProtectedRoute'; // Make sure this is i
 import { AuthProvider } from './context/AuthContext';
 import AboutUs from './pages/AboutUs';
 import './index.css';
+import ContactUs from './pages/ContactUs';
 
 function App() {
   return (
@@ -26,6 +26,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
@@ -41,6 +42,11 @@ function App() {
                 <EditCapsule />
               </ProtectedRoute>
             } /> */}
+            <Route path="/view/:id" element={
+              <ProtectedRoute>
+                <ViewCapsule />
+              </ProtectedRoute>
+            } />
             <Route path="/notifications" element={
               <ProtectedRoute>
                 <Notifications />
