@@ -6,15 +6,11 @@
   cursor: pointer;
   overflow: hidden;
   transition: box-shadow 0.2s ease;
-  width: 100%; /* Ensure it fits the container */
-  max-width: 28rem; /* Set a max-width for the card */
-  margin: 1rem; /* Add margin to space out the cards */
 }
 
-/* Image Section */
 .capsule-image-section {
   position: relative;
-  height: 10rem; /* Tailwind h-64 - increased height for larger image section */
+  height: 12rem; /* Tailwind h-48 */
   background: linear-gradient(to bottom right, #4c6ef5, #7c3aed); /* Tailwind gradient */
 }
 
@@ -33,12 +29,11 @@
 
 .capsule-text {
   position: absolute;
-  bottom: 1.5rem; /* Increased bottom padding */
-  left: 1.5rem; /* Adjusted left padding */
-  right: 1.5rem;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
 }
 
-/* Title and Description */
 .capsule-title {
   font-size: 1.25rem; /* Tailwind text-xl */
   font-weight: 600; /* Tailwind font-semibold */
@@ -46,7 +41,7 @@
 }
 
 .capsule-description {
-  font-size: 1rem; /* Tailwind text-sm */
+  font-size: 0.875rem; /* Tailwind text-sm */
   color: rgba(255, 255, 255, 0.9); /* Using rgba for opacity */
   overflow: hidden;
   text-overflow: ellipsis;
@@ -54,12 +49,10 @@
   max-width: 100%;
 }
 
-/* Capsule Details Section */
 .capsule-details {
-  padding: 1.5rem; /* Tailwind p-6 for more spacing */
+  padding: 1rem; /* Tailwind p-4 */
 }
 
-/* Lock Status */
 .capsule-lock-status {
   display: flex;
   justify-content: space-between;
@@ -77,17 +70,15 @@
   font-weight: 500; /* Tailwind font-medium */
 }
 
-/* Unlock Soon Badge */
 .capsule-unlock-soon {
-  padding: 0.5rem 1rem; /* Increased padding for better visibility */
-  font-size: 0.875rem; /* Tailwind text-sm */
+  padding: 0.25rem 0.5rem; /* Tailwind px-3 py-1 */
+  font-size: 0.75rem; /* Tailwind text-xs */
   font-weight: 500; /* Tailwind font-medium */
   background-color: #fef3c7; /* Tailwind bg-amber-50 */
   color: #b45309; /* Tailwind text-amber-700 */
   border-radius: 9999px; /* Tailwind rounded-full */
 }
 
-/* Capsule Info Section */
 .capsule-info {
   display: flex;
   justify-content: space-between;
@@ -98,16 +89,13 @@
 .capsule-date,
 .capsule-recipients {
   display: flex;
-  justify-content: space-between;
-  /* align-items: center; */
-  /* gap: 0.1rem; Tailwind space-x-2 */
+  align-items: center;
+  gap: 0.5rem; /* Tailwind space-x-2 */
 }
 
-/* Actions: Edit and Delete */
 .capsule-actions {
   display: flex;
-  justify-content: space-between; /* Aligns actions at separate corners */
-  margin-top: 1.25rem; /* Tailwind mt-5 for better spacing */
+  gap: 1rem; /* Tailwind space-x-4 */
 }
 
 .capsule-edit-link,
@@ -117,9 +105,6 @@
   gap: 0.25rem; /* Tailwind space-x-1 */
   font-size: 0.875rem; /* Tailwind text-sm */
   font-weight: 500; /* Tailwind font-medium */
-  text-decoration: none; /* Remove underline for links */
-  color: #6b7280; /* Tailwind text-gray-500 */
-  transition: color 0.2s ease;
 }
 
 .capsule-edit-link:hover {

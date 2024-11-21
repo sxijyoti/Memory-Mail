@@ -12,6 +12,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import AboutUs from './pages/AboutUs';
 import './index.css';
+import ContactUs from './pages/ContactUs';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <Dashboard />
@@ -38,6 +40,7 @@ function App() {
               <ProtectedRoute>
                 <CapsuleDetails />
               </ProtectedRoute>
+
             } />
             <Route path="/notifications" element={
               <ProtectedRoute>

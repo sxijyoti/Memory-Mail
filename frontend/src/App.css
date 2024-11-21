@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900');
+
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -39,4 +42,9 @@
 
 .read-the-docs {
   color: #888;
+}
+
+body{
+  font-family: 'Montserrat', 'Inter','Arial', sans-serif;
+    /* color: #fbe4d8; */
 }
