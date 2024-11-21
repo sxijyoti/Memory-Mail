@@ -2,7 +2,6 @@
 
 
 /* Hero Section */
-/* Hero Section */
 .landing-hero {
     position: relative;
     height: 100vh;
@@ -297,32 +296,34 @@
     font-size: 1rem;
     color: #dfb6b2;
 }
-
 /* Contact Us Section */
 .landing-contact {
-    background-color: #190019;
-    padding: 2rem 1rem;
-    text-align: center;
+  background-color: #190019;
+  padding: 2rem 1rem;
+  text-align: center;
 }
 
 .landing-contact-list {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0 0;
+  list-style: none;
+  padding: 0;
+  color: #dfb6b2;
+  font-size: 1.25rem;
+  text-decoration: underline;
+  /* margin: 1.5rem 0 0; */
 }
 
 .landing-contact-list li {
-    font-size: 1rem;
-    color: #dfb6b2;
-    margin: 0.5rem 0;
+  font-size: 1rem;
+  color: #dfb6b2;
+  margin: 0.5rem 0;
 }
 
 .landing-contact-list a {
-    color: #854f6c;
-    text-decoration: none;
-    transition: color 0.3s ease;
+  color: #854f6c;
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .landing-contact-list a:hover {
-    color: #dfb6b2;
+  color: #dfb6b2;
 }
