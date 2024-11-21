@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CapsuleCard from '../components/CapsuleCard';
 import './stylesheet/Dashboard.css';
 
@@ -7,6 +7,7 @@ export default function Dashboard() {
   const [capsules, setCapsules] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCapsules = async () => {
@@ -71,9 +72,9 @@ export default function Dashboard() {
   };
 
   const handleCapsuleClick = (id) => {
-    // Handle capsule click - navigate to capsule detail or open modal
-    console.log('Clicked capsule:', id);
+    navigate(`/capsule/${id}`); // Navigates to CapsuleDetails without opening a new tab
   };
+  
 
   if (loading) {
     return (
