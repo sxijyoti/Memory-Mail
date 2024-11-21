@@ -1,72 +1,34 @@
-// import { createContext, useContext, useState } from 'react';
-
-// const AuthContext = createContext(null);
-
-// export const AuthProvider = ({ children }) => {
-//   const [user, setUser] = useState(null);
-
-//   const login = (userData) => {
-//     setUser(userData);
-//     // In a real app, you'd store the token in localStorage
-//   };
-
-//   const logout = () => {
-//     setUser(null);
-//     // In a real app, you'd remove the token from localStorage
-//   };
-
-//   return (
-//     <AuthContext.Provider value={{ user, login, logout }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// export const useAuth = () => useContext(AuthContext);
-// context/AuthContext.jsx
-// import { createContext, useContext, useState } from 'react';
-
-// const AuthContext = createContext();
-
-// export const AuthProvider = ({ children }) => {
-//   const [user, setUser] = useState(null);
-
-//   const login = (userData) => {
-//     setUser(userData); // Set user after successful login
-//   };
-
-//   const logout = () => {
-//     setUser(null); // Log the user out
-//   };
-
-//   return (
-//     <AuthContext.Provider value={{ user, login, logout }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-// export const useAuth = () => useContext(AuthContext);
-
 import { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('authToken')); // Initialize token from localStorage
 
   const login = (userData, token) => {
+    console.log("login function call before set user statement");
     setUser(userData);
+    console.log("login function call");
+    console.log(token);
+    console.log('token being saved', token);
+
     localStorage.setItem('authToken', token); // Store token in localStorage
+    setToken(token); // Save token in state as well
+    console.log('statement after store in local storage');
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('authToken'); // Remove token on logout
+    setToken(null); // Clear token state on logout
+    console.log("logout function call");
+
+    localStorage.removeItem('authToken'); // Remove token from localStorage
   };
 
   const getToken = () => {
-    return localStorage.getItem('authToken'); // Retrieve token when needed
+    console.log("get token function call");
+    return token || localStorage.getItem('authToken'); // Return token from state or localStorage if not in state
   };
 
   return (

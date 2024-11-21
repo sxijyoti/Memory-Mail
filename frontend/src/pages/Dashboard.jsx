@@ -1,39 +1,78 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CapsuleCard from '../components/CapsuleCard';
-import './stylesheet/Dashboard.css'; // Import the CSS file
+import './stylesheet/Dashboard.css';
 
 export default function Dashboard() {
   const [capsules, setCapsules] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Mock data - in a real app, this would be an API call
-    const mockCapsules = [
-      {
-        id: 1,
-        title: "Birthday Wishes",
-        message: "Happy 30th birthday! Here's to many more amazing years!",
-        recipientEmail: "friend@example.com",
-        unlockDate: "2024-12-25",
-        imageUrl: "https://i.imgur.com/CzXTtJV.jpg"
-      },
-      {
-        id: 2,
-        title: "Time Capsule 2025",
-        message: "Remember where you were when you wrote this...",
-        recipientEmail: "future@example.com",
-        unlockDate: "2025-01-01"
-      }
-    ];
+    const fetchCapsules = async () => {
+      try {
+        const token = localStorage.getItem('authToken');
+        
+        if (!token) {
+          setError('Authentication token not found');
+          setLoading(false);
+          return;
+        }
     
-    setCapsules(mockCapsules);
-    setLoading(false);
-  }, []);
+        const response = await fetch('http://localhost:5000/api/capsules', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+    
+        if (!response.ok) {
+          const errorText = await response.text();
+          throw new Error(errorText || 'Failed to fetch capsules');
+        }
+    
+        const result = await response.json();
+        setCapsules(result.capsules);
+      } catch (err) {
+        setError(err.message || 'Error fetching capsules');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchCapsules();
+  }, []); 
 
-  const handleDelete = (id) => {
-    // In a real app, this would make an API call
-    setCapsules(capsules.filter(capsule => capsule.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      
+      const response = await fetch(`http://localhost:5000/api/capsules/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        const errorResult = await response.json();
+        throw new Error(errorResult.message || 'Failed to delete capsule');
+      }
+
+      // Remove the deleted capsule from the state
+      setCapsules(prevCapsules => 
+        prevCapsules.filter(capsule => capsule._id !== id)
+      );
+    } catch (err) {
+      setError(err.message || 'Error deleting capsule');
+      console.error(err);
+    }
+  };
+
+  const handleCapsuleClick = (id) => {
+    // Handle capsule click - navigate to capsule detail or open modal
+    console.log('Clicked capsule:', id);
   };
 
   if (loading) {
@@ -53,6 +92,8 @@ export default function Dashboard() {
         </Link>
       </div>
 
+      {error && <div className="error-message">{error}</div>}
+
       {capsules.length === 0 ? (
         <div className="no-capsules">
           <h3 className="message">No time capsules yet</h3>
@@ -61,7 +102,12 @@ export default function Dashboard() {
       ) : (
         <div className="capsules-grid">
           {capsules.map((capsule) => (
-            <CapsuleCard key={capsule.id} capsule={capsule} onDelete={handleDelete} />
+            <CapsuleCard 
+              key={capsule._id} 
+              capsule={capsule} 
+              onClick={handleCapsuleClick}
+              onDelete={handleDelete} 
+            />
           ))}
         </div>
       )}

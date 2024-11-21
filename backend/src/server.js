@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Routes
 app.use('/api', authRoutes);
-app.use('/api', capsuleRoutes);
+app.use('/api/capsules', capsuleRoutes);
 
 // Schedule daily capsule check at midnight
 cron.schedule('0 0 * * *', async () => {

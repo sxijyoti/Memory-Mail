@@ -16,7 +16,7 @@ export default function Login() {
     try {
       // Prepare the payload for login request
       const payload = { email, password };
-
+  
       // Make the API call to the backend login endpoint
       const response = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
@@ -25,13 +25,15 @@ export default function Login() {
         },
         body: JSON.stringify(payload),
       });
-
+  
       const result = await response.json();
-
+  
       if (response.ok) {
+        console.log('Login response:', result); // Debug log
+  
         // If login is successful, store the token and user info in context
-        login({ email: result.user.email, token: result.token });
-
+        login(result.user, result.token); // Pass user and token separately
+  
         // Redirect to the dashboard or home page
         navigate('/dashboard');
       } else {
@@ -40,8 +42,10 @@ export default function Login() {
       }
     } catch (err) {
       setError('Login failed. Please try again.');
+      console.error('Login error:', err);
     }
   };
+  
 
   return (
     <div className="login-container">
