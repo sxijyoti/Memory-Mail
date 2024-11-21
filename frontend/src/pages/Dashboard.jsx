@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CapsuleCard from '../components/CapsuleCard';
 import Timer from '../components/Timer';
 import './stylesheet/Dashboard.css';
@@ -8,7 +8,10 @@ export default function Dashboard() {
   const [capsules, setCapsules] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const navigate = useNavigate();
   const [nextCapsule, setNextCapsule] = useState(null);
+
 
   // Fetch capsules
   useEffect(() => {
@@ -92,6 +95,13 @@ export default function Dashboard() {
       console.error(err);
     }
   };
+
+
+  const handleCapsuleClick = (id) => {
+    navigate(`/capsule/${id}`); // Navigates to CapsuleDetails without opening a new tab
+  };
+  
+
 
   if (loading) {
     return (

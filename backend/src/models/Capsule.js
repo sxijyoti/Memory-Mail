@@ -26,6 +26,27 @@ const capsuleSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now
+  },
+  unlockedAt: {
+    type: Date,
+    default: null
+  }
+}, {
+  methods: {
+    // Method to check if capsule is unlockable
+    isUnlockable() {
+      return this.isLocked && new Date() >= this.unlockDate;
+    },
+
+    // Method to unlock the capsule
+    unlock() {
+      if (this.isUnlockable()) {
+        this.isLocked = false;
+        this.unlockedAt = new Date();
+        return true;
+      }
+      return false;
+    }
   }
 });
 

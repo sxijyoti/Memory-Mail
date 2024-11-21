@@ -37,23 +37,97 @@ router.post('/', authenticateToken, async (req, res) => {
 
 
 // Fetch Capsules for the Authenticated User
-router.get('/', authenticateToken, async (req, res) => {
-  console.log('Request reached /api/capsules');
+router.get('/:id', authenticateToken, async (req, res) => {
+  const { id } = req.params;
   const userId = req.user.userId;
-  console.log('Authenticated user:', req.user);
 
   try {
-    const capsules = await Capsule.find({ userId });
-    console.log('Capsules fetched:', capsules);
+    // Find the capsule and ensure it belongs to the authenticated user
+    const capsule = await Capsule.findOne({ 
+      _id: id, 
+      userId: userId 
+    });
+
+    if (!capsule) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Capsule not found or unauthorized' 
+      });
+    }
+
+    // Check if capsule is unlockable
+    const currentDate = new Date();
+    const unlockDate = new Date(capsule.unlockDate);
+
+    if (currentDate < unlockDate && capsule.isLocked) {
+      return res.status(403).json({ 
+        success: false,
+        message: 'Capsule is not yet unlockable',
+        unlockDate: capsule.unlockDate
+      });
+    }
+
+    // If capsule is locked and ready to be unlocked, update its status
+    if (capsule.isLocked) {
+      capsule.isLocked = false;
+      capsule.unlockedAt = currentDate;
+      await capsule.save();
+    }
+
     res.status(200).json({
       success: true,
-      capsules,
+      capsule
+    });
+  } catch (error) {
+    console.error('Error fetching capsule details:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Error fetching capsule', 
+      error: error.message 
+    });
+  }
+});
+
+
+// Add this route to fetch all capsules for the authenticated user
+router.get('/', authenticateToken, async (req, res) => {
+  const userId = req.user.userId;
+
+  try {
+    const capsules = await Capsule.find({ 
+      userId: userId 
+    }).sort({ createdAt: -1 });
+
+    // Check and update lock status for each capsule
+    const updatedCapsules = capsules.map(capsule => {
+      const currentDate = new Date();
+      const unlockDate = new Date(capsule.unlockDate);
+
+      if (currentDate >= unlockDate && capsule.isLocked) {
+        capsule.isLocked = false;
+        capsule.unlockedAt = currentDate;
+      }
+
+      return capsule;
+    });
+
+    // Save updated capsules
+    await Promise.all(updatedCapsules.map(capsule => capsule.save()));
+
+    res.status(200).json({
+      success: true,
+      capsules: updatedCapsules
     });
   } catch (error) {
     console.error('Error fetching capsules:', error);
-    res.status(500).json({ success: false, message: 'Error fetching capsules', error });
+    res.status(500).json({ 
+      success: false, 
+      message: 'Error fetching capsules', 
+      error: error.message 
+    });
   }
 });
+
 
 
 // Delete a Capsule by ID

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Lock, Unlock, Calendar, Users, Trash } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './CapsuleCard.css';
 
-export default function CapsuleCard({ capsule, onClick, onDelete }) {
+export default function CapsuleCard({ capsule, onDelete }) {
+  const navigate = useNavigate();
+
   const isUnlockingSoon =
     capsule.isLocked &&
     new Date(capsule.unlockDate) - new Date() < 7 * 24 * 60 * 60 * 1000; // 7 days in ms
@@ -20,8 +23,18 @@ export default function CapsuleCard({ capsule, onClick, onDelete }) {
     }
   };
 
+  const handleCapsuleClick = () => {
+    // Only navigate if capsule is unlocked
+    if (!capsule.isLocked) {
+      navigate(`/capsule/${capsule._id}`);
+    }
+  };
+
   return (
-    <div onClick={() => onClick(capsule._id)} className="capsule-card">
+    <div 
+      onClick={handleCapsuleClick} 
+      className={`capsule-card ${capsule.isLocked ? 'locked' : 'unlocked'}`}
+    >
       {/* Image and Title Section */}
       <div className="capsule-image-section">
         {imageContent && (

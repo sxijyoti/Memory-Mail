@@ -3,13 +3,12 @@ import Navbar from './components/Navbar';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import CreateCapsule from './pages/CreateCapsule';
-// import EditCapsule from './pages/EditCapsule';
-import ViewCapsule from './pages/ViewCapsule';
 import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import ProtectedRoute from './components/ProtectedRoute'; // Make sure this is imported
+import CapsuleDetails from './pages/CapsuleDetails'; // Import the new page
+import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import AboutUs from './pages/AboutUs';
 import './index.css';
@@ -37,15 +36,11 @@ function App() {
                 <CreateCapsule />
               </ProtectedRoute>
             } />
-            {/* <Route path="/edit/:id" element={
+            <Route path="/capsule/:id" element={
               <ProtectedRoute>
-                <EditCapsule />
+                <CapsuleDetails />
               </ProtectedRoute>
-            } /> */}
-            <Route path="/view/:id" element={
-              <ProtectedRoute>
-                <ViewCapsule />
-              </ProtectedRoute>
+
             } />
             <Route path="/notifications" element={
               <ProtectedRoute>
