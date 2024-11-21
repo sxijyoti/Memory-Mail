@@ -1,62 +1,62 @@
-/* General container styles */
-.about-us-container {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 1.5rem;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+/* General Styles for Body */
+body {
+    background: linear-gradient(to bottom, #190019, #2b124c); /* Dark purple gradient background */
     font-family: 'Arial', sans-serif;
-  }
-  
-  /* Header section */
-  .about-us-header {
+    color: #fbe4d8; /* Pale peach text color */
+    margin: 0; /* Remove default margin */
+    min-height: 100vh; /* Ensure it covers the full viewport height */
+    justify-content: center; /* Centers the content vertically */
+    align-items: center; /* Centers the content horizontally */
+}
+/* Container Styles */
+.about-us-container {
+    width: 100%;
+    background: linear-gradient(to bottom, #190019, #2b124c); /* Pale peach background color */
+    padding: 2rem;
+    padding-left:13rem;
+    padding-right:13rem;
+    display: flex; /* Ensures the content takes the full height */
+    flex-direction: column; /* Stacks the sections vertically */
+    min-height: 100vh;
+}
+/* Header section */
+.about-us-header {
     text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .about-us-title {
+    margin-bottom: 2.5rem; /* Increase the bottom margin */
+}
+.about-us-title {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #333;
-    margin-bottom: 0.5rem;
-  }
-  
-  .about-us-subtitle {
+    color: #ffffff; /* Dark purple color */
+    margin-bottom: 0.75rem; /* Increase the bottom margin */
+}
+.about-us-subtitle {
     font-size: 1.125rem;
-    color: #555;
+    color: #dfb6b2; /* Dark purple color */
     line-height: 1.6;
-  }
-  
-  /* Section styles */
-  .about-us-section {
+}
+/* Section styles */
+.about-us-section {
     margin-bottom: 2rem;
-  }
-  
-  .about-us-heading {
+}
+.about-us-heading {
     font-size: 1.75rem;
     font-weight: bold;
-    color: #4f46e5; /* Accent color */
+    color: #ffffff; /* Light purple color */
     margin-bottom: 1rem;
-  }
-  
-  .about-us-text {
+}
+.about-us-text {
     font-size: 1rem;
-    color: #555;
+    color: #dfb6b2; /* Dark purple color */
     line-height: 1.8;
-  }
-  
-  /* Footer styles */
-  .about-us-footer {
+}
+/* Footer styles */
+.about-us-footer {
     text-align: center;
     margin-top: 2rem;
     padding-top: 1rem;
-    border-top: 1px solid #ddd;
-  }
-  
-  .about-us-footer-text {
+    border-top: 1px solid #854f6c; /* Light purple border */
+    color: #dfb6b2; /* Soft pink color */
     font-size: 0.875rem;
-    color: #777;
-  }
-  
+
+}
