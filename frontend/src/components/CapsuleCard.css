@@ -1,116 +1,148 @@
-/* Capsule Card */
+/* Capsule Card Styles */
 .capsule-card {
-  background-color: #fff;
-  border-radius: 1rem;
-  border: 1px solid #e5e7eb; /* Tailwind gray-100 */
-  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  background-color: #190019; /* Dark purple */
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  transition: box-shadow 0.2s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
+.capsule-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Image Section */
 .capsule-image-section {
   position: relative;
-  height: 12rem; /* Tailwind h-48 */
-  background: linear-gradient(to bottom right, #4c6ef5, #7c3aed); /* Tailwind gradient */
+  height: 200px; /* Fixed height for images */
+  /* overflow: hidden; */
 }
+
 
 .capsule-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  opacity: 0.5;
-}
-
-.capsule-overlay {
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.2);
+  object-fit: cover;  /* This will make the image cover the area without stretching */
+  border-radius: 0.5rem;
 }
 
 .capsule-text {
   position: absolute;
   bottom: 1rem;
   left: 1rem;
-  right: 1rem;
+  color: #fbe4d8; /* Pale peach */
 }
 
 .capsule-title {
-  font-size: 1.25rem; /* Tailwind text-xl */
-  font-weight: 600; /* Tailwind font-semibold */
-  color: white;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
 }
 
 .capsule-description {
-  font-size: 0.875rem; /* Tailwind text-sm */
-  color: rgba(255, 255, 255, 0.9); /* Using rgba for opacity */
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  max-width: 100%;
+  font-size: 1rem;
+  opacity: 0.85; /* Slightly faded description */
+  margin: 0;
 }
 
+/* Details Section */
 .capsule-details {
-  padding: 1rem; /* Tailwind p-4 */
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
+/* Lock Status */
 .capsule-lock-status {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1rem; /* Tailwind mb-4 */
+  align-items: center;
 }
 
 .capsule-lock-info {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Tailwind space-x-2 */
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #fbe4d8;
+}
+
+.capsule-lock-icon,
+.capsule-unlock-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #854f6c; /* Lighter purple */
 }
 
 .capsule-lock-text {
-  font-size: 0.875rem; /* Tailwind text-sm */
-  font-weight: 500; /* Tailwind font-medium */
+  font-weight: 600;
 }
 
 .capsule-unlock-soon {
-  padding: 0.25rem 0.5rem; /* Tailwind px-3 py-1 */
-  font-size: 0.75rem; /* Tailwind text-xs */
-  font-weight: 500; /* Tailwind font-medium */
-  background-color: #fef3c7; /* Tailwind bg-amber-50 */
-  color: #b45309; /* Tailwind text-amber-700 */
-  border-radius: 9999px; /* Tailwind rounded-full */
+  background-color: #854f6c; /* Lighter purple */
+  color: #fbe4d8; /* Pale peach */
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.375rem;
 }
 
+/* Unlock Date and Recipient Info */
 .capsule-info {
   display: flex;
   justify-content: space-between;
-  color: #6b7280; /* Tailwind text-gray-500 */
-  font-size: 0.875rem; /* Tailwind text-sm */
+  align-items: center;
+  gap: 1rem;
 }
 
 .capsule-date,
 .capsule-recipients {
   display: flex;
   align-items: center;
-  gap: 0.5rem; /* Tailwind space-x-2 */
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #dfb6b2; /* Soft pink */
 }
 
+.capsule-calendar-icon,
+.capsule-users-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #854f6c; /* Lighter purple */
+}
+
+/* Actions: Delete */
 .capsule-actions {
   display: flex;
-  gap: 1rem; /* Tailwind space-x-4 */
+  justify-content: flex-end;
 }
 
-.capsule-edit-link,
 .capsule-delete-button {
   display: flex;
   align-items: center;
-  gap: 0.25rem; /* Tailwind space-x-1 */
-  font-size: 0.875rem; /* Tailwind text-sm */
-  font-weight: 500; /* Tailwind font-medium */
-}
-
-.capsule-edit-link:hover {
-  color: #4338ca; /* Tailwind hover:text-indigo-800 */
+  gap: 0.5rem;
+  background-color: #522b5b; /* Muted purple */
+  color: #fbe4d8; /* Pale peach */
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .capsule-delete-button:hover {
-  color: #b91c1c; /* Tailwind hover:text-red-800 */
+  background-color: #854f6c; /* Lighter purple */
+  transform: translateY(-2px);
+}
+
+.capsule-delete-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #fbe4d8; /* Pale peach */
 }
