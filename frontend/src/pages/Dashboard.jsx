@@ -1,48 +1,40 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CapsuleCard from '../components/CapsuleCard';
-import './stylesheet/Dashboard.css'; // Import the CSS file
+import './stylesheet/Dashboard.css';
 
 export default function Dashboard() {
   const [capsules, setCapsules] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // For handling any errors from the API
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCapsules = async () => {
       try {
-        // Retrieve the token from localStorage
         const token = localStorage.getItem('authToken');
-        console.log('Token retrieved:', token); // Log the token to verify
-    
+        
         if (!token) {
-          setError('Token not found');
+          setError('Authentication token not found');
+          setLoading(false);
           return;
         }
     
-        // Fetching capsules from the backend API
-        const response = await fetch('http://localhost:5000/api/capsules', { // Include the backend URL and port
+        const response = await fetch('http://localhost:5000/api/capsules', {
           method: 'GET',
           headers: {
-            'Authorization': `Bearer ${token}`, // Pass the token in the Authorization header
+            'Authorization': `Bearer ${token}`,
           },
         });
     
-        // Check if response is OK (200-299 status code)
         if (!response.ok) {
-          const errorText = await response.text(); // Get error message as plain text if not JSON
-          console.error('Error response:', errorText);
-          setError(errorText || 'Failed to fetch capsules');
-          return;
+          const errorText = await response.text();
+          throw new Error(errorText || 'Failed to fetch capsules');
         }
     
-        // Parse the JSON response
         const result = await response.json();
-    
-        // Assuming response contains the capsules array
         setCapsules(result.capsules);
       } catch (err) {
-        setError('Error fetching capsules');
+        setError(err.message || 'Error fetching capsules');
         console.error(err);
       } finally {
         setLoading(false);
@@ -50,33 +42,37 @@ export default function Dashboard() {
     };
     
     fetchCapsules();
-    
-
-  }, []); // Empty array so this effect runs only once when the component is mounted
+  }, []); 
 
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('authToken');
-      console.log('Token for delete:', token);  // Log token for deletion action
-
-      const response = await fetch(`/api/capsules/${id}`, {
+      
+      const response = await fetch(`http://localhost:5000/api/capsules/${id}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${token}`, // Pass the token in the Authorization header
+          'Authorization': `Bearer ${token}`,
         },
       });
 
-      if (response.ok) {
-        // Remove the deleted capsule from the state
-        setCapsules(capsules.filter(capsule => capsule._id !== id));
-      } else {
-        const result = await response.json();
-        setError(result.message || 'Failed to delete capsule');
+      if (!response.ok) {
+        const errorResult = await response.json();
+        throw new Error(errorResult.message || 'Failed to delete capsule');
       }
+
+      // Remove the deleted capsule from the state
+      setCapsules(prevCapsules => 
+        prevCapsules.filter(capsule => capsule._id !== id)
+      );
     } catch (err) {
-      setError('Error deleting capsule');
+      setError(err.message || 'Error deleting capsule');
       console.error(err);
     }
+  };
+
+  const handleCapsuleClick = (id) => {
+    // Handle capsule click - navigate to capsule detail or open modal
+    console.log('Clicked capsule:', id);
   };
 
   if (loading) {
@@ -106,7 +102,12 @@ export default function Dashboard() {
       ) : (
         <div className="capsules-grid">
           {capsules.map((capsule) => (
-            <CapsuleCard key={capsule._id} capsule={capsule} onDelete={handleDelete} />
+            <CapsuleCard 
+              key={capsule._id} 
+              capsule={capsule} 
+              onClick={handleCapsuleClick}
+              onDelete={handleDelete} 
+            />
           ))}
         </div>
       )}

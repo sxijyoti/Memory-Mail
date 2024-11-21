@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import CreateCapsule from './pages/CreateCapsule';
-import EditCapsule from './pages/EditCapsule';
+// import EditCapsule from './pages/EditCapsule';
 import Notifications from './pages/Notifications';
 import Settings from './pages/Settings';
 import Login from './pages/Login';
@@ -36,11 +36,11 @@ function App() {
                 <CreateCapsule />
               </ProtectedRoute>
             } />
-            <Route path="/edit/:id" element={
+            {/* <Route path="/edit/:id" element={
               <ProtectedRoute>
                 <EditCapsule />
               </ProtectedRoute>
-            } />
+            } /> */}
             <Route path="/notifications" element={
               <ProtectedRoute>
                 <Notifications />

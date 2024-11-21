@@ -59,20 +59,40 @@ router.get('/', authenticateToken, async (req, res) => {
 // Delete a Capsule by ID
 router.delete('/:id', authenticateToken, async (req, res) => {
   const { id } = req.params;
+  const userId = req.user.userId; // This adds the user ID check
+
+  console.log('Delete request details:', { 
+    capsuleId: id, 
+    userId: userId 
+  }); // Additional logging for debugging
 
   try {
-    const deletedCapsule = await Capsule.findByIdAndDelete(id);
+    const deletedCapsule = await Capsule.findOneAndDelete({ 
+      _id: id, 
+      userId: userId // This ensures the capsule belongs to the user
+    });
 
     if (!deletedCapsule) {
-      return res.status(404).json({ success: false, message: 'Capsule not found' });
+      console.log('Capsule not found or unauthorized:', { id, userId });
+      return res.status(404).json({ 
+        success: false, 
+        message: 'Capsule not found or you do not have permission to delete' 
+      });
     }
+
+    console.log('Capsule deleted successfully:', deletedCapsule._id);
 
     res.status(200).json({
       success: true,
       message: 'Capsule deleted successfully',
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Error deleting capsule', error });
+    console.error('Error deleting capsule:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Error deleting capsule', 
+      error: error.message 
+    });
   }
 });
 
